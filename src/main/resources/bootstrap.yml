@@ -4,7 +4,7 @@ spring:
   cloud:
     vault:
       authentication: TOKEN
-      token: s.Q6wpEAJHfXe59vi4ovbyWQnO
+      token: 123
       host: localhost
       port: 8200
       scheme: http
@@ -12,7 +12,7 @@ spring:
       config:
         lifecycle:
           enabled: true
-          min-renewal: 5s
+          min-renewal: 10s
           expiry-threshold: 1m
       generic:
         enabled: true
