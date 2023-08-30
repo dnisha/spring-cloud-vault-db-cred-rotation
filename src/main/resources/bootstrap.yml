@@ -12,7 +12,7 @@ spring:
       config:
         lifecycle:
           enabled: true
-          min-renewal: 10s
+          min-renewal: 5s
           expiry-threshold: 1m
       generic:
         enabled: true
