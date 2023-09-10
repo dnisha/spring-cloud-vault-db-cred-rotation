@@ -33,6 +33,14 @@ vault write database/config/postgresql \
      username="admin" \
      password="admin123"
 ```
+### Read configure PostgreSQL secrets engine
+```
+vault read write database/config/postgresql
+```
+### Rotate DBsecret
+```
+vault write -f database/rotate-root/postgresql
+```
 
 ### Verify the configuration
 ```
@@ -40,4 +48,16 @@ vault write database/roles/myrole db_name=postgresql \
      creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO \"{{name}}\"; GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
      default_ttl="30s" \
      max_ttl="1m"
+```
+### Read role
+```
+vault read database/roles/myrole
+```
+### Read dynamic secrets
+```
+vault read database/creds/myrole
+```
+### Link
+```
+https://youtu.be/M8PGr-pINnM
 ```
