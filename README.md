@@ -35,7 +35,7 @@ vault write database/config/postgresql \
 ```
 ### Read configure PostgreSQL secrets engine
 ```
-vault read write database/config/postgresql
+vault read database/config/postgresql
 ```
 ### Rotate DBsecret
 ```

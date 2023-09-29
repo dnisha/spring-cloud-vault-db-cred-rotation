@@ -1,47 +1,34 @@
 ### Enable the approl secrets engine and secret path
 ```
 vault auth enable approle
-vault secrets enable -path=database/mysql kv
 ```
-### Create database secret
-```
-vault kv put database/mysql/webapp db-name="users" username="admin" password="password@123"
-```
-### Read path
-```
-vault kv get -mount=database/mysql/ webapp 
-```
+
 ### Configure policy named jenkins
 ```
-vault policy write jenkins -<<EOF
-path "database/mysql/webapp" {
-  capabilities = [ "read" ]
+vault policy write spring-boot  -<<EOF
+path "database/creds/myrole" {
+  capabilities = [ "read" , "create"]
 }
 EOF
 ```
 ### Create approle with policy
 ```
-vault write auth/approle/role/jenkins token_policies="jenkins" token_ttl=1h token_max_ttl=4h secret_id_num_uses=5
+vault write auth/approle/role/spring-boot token_policies="spring-boot" token_ttl=1h token_max_ttl=4h secret_id_num_uses=0 token_num_uses=0
 ```
 ### Read attached policy
 ```
-vault read auth/approle/role/jenkins
+vault read auth/approle/role/spring-boot
 ```
 ### Get the role-id
 ```
-vault read auth/approle/role/jenkins/role-id
+vault read auth/approle/role/spring-boot/role-id
 ```
 ### Get the secred-id
 ```
-vault write -f auth/approle/role/jenkins/secret-id
+vault write -f auth/approle/role/spring-boot/secret-id
 ```
 ### Get the token from vault
 ```
-vault write auth/approle/login role_id="85c578ef-84ec-f538-0576-6c4cfac50ef0" \
-    secret_id="a02c745e-2f73-04b5-badf-e2572c4de8df"
+vault write auth/approle/login role_id="8db16328-bac6-d568-a738-6c597620bb28" \
+    secret_id="ed37b6e4-2b19-8fc8-184c-feaa0ee5ef21"
 ```
-### Get the secrets
-```
-vault kv get /database/mysql/webapp 
-```
-

@@ -3,20 +3,11 @@ spring:
     name: spring-boot-vault-demo
   cloud:
     vault:
-      authentication: TOKEN
-      token: 123
-      host: localhost
-      port: 8200
-      scheme: http
-      fail-fast: true
-      config:
-        lifecycle:
-          enabled: true
-          min-renewal: 5s
-          expiry-threshold: 1m
-      generic:
-        enabled: true
-        backend: secret
+      authentication: APPROLE
+      app-role:
+        role-id: 8db16328-bac6-d568-a738-6c597620bb28
+        secret-id: ed37b6e4-2b19-8fc8-184c-feaa0ee5ef21
+      uri: http://localhost:8200
       database:
         enabled: true
         role: myrole
